@@ -29,6 +29,25 @@ class MainViewModel : ViewModel() {
     private val mutableErrorMessage = MutableLiveData<String?>()
     val errorMessage: LiveData<String?> = mutableErrorMessage
 
+    /** One-shot: Level 6.2 — clear password on Auth after Retry from error screen. */
+    private val mutableClearAuthPassword = MutableLiveData(false)
+    val clearAuthPassword: LiveData<Boolean> = mutableClearAuthPassword
+
+    private val mutableIsAuthenticated = MutableLiveData<Boolean>(false)
+    val isAuthenticated: LiveData<Boolean> = mutableIsAuthenticated
+
+    fun setAuthenticated(status: Boolean) {
+        mutableIsAuthenticated.value = status
+    }
+
+    fun requestClearAuthPasswordForRetry() {
+        mutableClearAuthPassword.value = true
+    }
+
+    fun consumeClearAuthPasswordRequest() {
+        mutableClearAuthPassword.value = false
+    }
+
     fun clearErrorMessage() {
         mutableErrorMessage.value = null
     }
@@ -79,8 +98,7 @@ class MainViewModel : ViewModel() {
     }
 
 
-    /** Level 5.3 — validate password via repository (`POST /auth/validate`). */
-    fun validatePassword(password: String) {
+    fun login(password: String) {
         val currentUser = mutableUserData.value ?: return
         mutableIsLoading.value = true
         viewModelScope.launch {
@@ -88,5 +106,15 @@ class MainViewModel : ViewModel() {
             mutableAuthResult.value = result
             mutableIsLoading.value = false
         }
+    }
+
+    /** Level 6.3 — new QR flow: drop resolve session and Retrofit client. */
+    fun resetSession() {
+        mutableUserData.value = null
+        mutableAuthResult.value = null
+        mutableErrorMessage.value = null
+        mutableIsLoading.value = false
+        consumeClearAuthPasswordRequest()
+        repository.clearApiSession()
     }
 }

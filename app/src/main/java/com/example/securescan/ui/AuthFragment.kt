@@ -20,8 +20,7 @@ class AuthFragment : Fragment() {
     private val sharedViewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAuthBinding.inflate(inflater, container, false)
@@ -45,33 +44,18 @@ class AuthFragment : Fragment() {
                 binding.authLBLEmail.text = it.email
                 binding.authLBLWelcome.text = "Welcome, ${it.fullName}!"
             }
-            updateSignInButtonState()
         }
 
         binding.authEDTPassword.addTextChangedListener {
-            updateSignInButtonState()
+            val password = it.toString()
+            binding.authBTNSignIn.isEnabled = password.length >= 4
         }
 
         binding.authBTNSignIn.setOnClickListener {
-            val password = binding.authEDTPassword.text?.toString().orEmpty()
-            if (password.isNotBlank()) {
-                sharedViewModel.validatePassword(password)
-            }
+            val password = binding.authEDTPassword.text.toString()
+            sharedViewModel.login(password)
         }
 
-        updateSignInButtonState()
-    }
-
-    /**
-     * 5.6: disable submit when password is empty; keep disabled while loading.
-     * After loading ends, re-apply password rule (do not leave button stuck enabled).
-     */
-    private fun updateSignInButtonState() {
-        val passwordOk = binding.authEDTPassword.text?.isNotBlank() == true
-        val busy = sharedViewModel.isLoading.value == true
-        val canSubmit = passwordOk && !busy
-        binding.authBTNSignIn.isEnabled = canSubmit
-        binding.authBTNSignIn.alpha = if (canSubmit) 1f else 0.5f
     }
 
     private fun observeViewModel() {
@@ -83,7 +67,13 @@ class AuthFragment : Fragment() {
                 binding.authPRBLoading.visibility = View.GONE
                 binding.authBTNSignIn.text = getString(R.string.auth_sign_in)
             }
-            updateSignInButtonState()
+        }
+
+        sharedViewModel.clearAuthPassword.observe(viewLifecycleOwner) { shouldClear ->
+            if (shouldClear == true) {
+                binding.authEDTPassword.setText("")
+                sharedViewModel.consumeClearAuthPasswordRequest()
+            }
         }
 
         sharedViewModel.authResult.observe(viewLifecycleOwner) { result ->
@@ -91,39 +81,41 @@ class AuthFragment : Fragment() {
                 null -> return@observe
                 is ApiResult.Success -> {
                     sharedViewModel.clearAuthResult()
-                    findNavController().navigate(
-                       R.id.action_authFragment_to_successFragment
-                    )
+                    findNavController().navigate(R.id.action_authFragment_to_successFragment)
                 }
                 is ApiResult.HttpError -> {
                     sharedViewModel.clearAuthResult()
-                    findNavController().navigate(
-                        R.id.action_authFragment_to_errorFragment
-                    )
+                    sharedViewModel.setErrorMessage(result.message ?: "Server error (${result.code})")
+                    findNavController().navigate(R.id.action_authFragment_to_errorFragment)
                     SignalManager.getInstance().vibrate()
                 }
                 ApiResult.NetworkError -> {
                     sharedViewModel.clearAuthResult()
-                    findNavController().navigate(
-                        R.id.action_authFragment_to_errorFragment
-                    )
+                    sharedViewModel.setErrorMessage("Network error. Check connection and try again.")
+                    findNavController().navigate(R.id.action_authFragment_to_errorFragment)
                     SignalManager.getInstance().vibrate()
                 }
                 is ApiResult.ParseError -> {
                     sharedViewModel.clearAuthResult()
-                    findNavController().navigate(
-                        R.id.action_authFragment_to_errorFragment
-                    )
+                    sharedViewModel.setErrorMessage(result.message)
+                    findNavController().navigate(R.id.action_authFragment_to_errorFragment)
                     SignalManager.getInstance().vibrate()
                 }
                 is ApiResult.ClientError -> {
                     sharedViewModel.clearAuthResult()
-                    findNavController().navigate(
-                        R.id.action_authFragment_to_errorFragment
-                    )
+                    sharedViewModel.setErrorMessage(result.message)
+                    findNavController().navigate(R.id.action_authFragment_to_errorFragment)
                     SignalManager.getInstance().vibrate()
                 }
             }
         }
     }
 }
+
+
+
+
+
+
+
+

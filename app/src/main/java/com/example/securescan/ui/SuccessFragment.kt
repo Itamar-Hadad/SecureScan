@@ -1,65 +1,74 @@
 package com.example.securescan.ui
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import com.example.securescan.R
+import com.example.securescan.databinding.FragmentSuccessBinding
 import com.example.securescan.viewmodels.MainViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SuccessFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SuccessFragment : Fragment() {
 
-    private val viewModel: MainViewModel by activityViewModels()
-
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var binding: FragmentSuccessBinding
+    private val sharedViewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_success, container, false)
+    ): View {
+        binding = FragmentSuccessBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SuccessFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SuccessFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initViews()
+        markAsAuthenticated()
+        startAutoAdvance()
+    }
+
+    private fun initViews() {
+        sharedViewModel.userData.observe(viewLifecycleOwner) { user ->
+            user?.let {
+                binding.successLBLName.text = it.fullName
+                binding.successLBLEmail.text = it.email
             }
+        }
+    }
+
+    private fun markAsAuthenticated() {
+       //upd
+        sharedViewModel.setAuthenticated(true)
+    }
+
+    private fun startAutoAdvance() {
+        //wait 2 sec before navigating to main app
+        Handler(Looper.getMainLooper()).postDelayed({
+            if (isAdded) {
+                navigateToMainApp()
+            }
+        }, 2000)
+    }
+
+    private fun navigateToMainApp() {
+        // define NavOptions to remove all Auth fragments from the back stack
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.qrScanFragment, true) // מוחק הכל עד הסורק (כולל)
+            .build()
+
+        findNavController().navigate(
+            R.id.action_successFragment_to_mainAppFragment,
+            null,
+            navOptions
+        )
     }
 }
+

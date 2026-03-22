@@ -7,6 +7,7 @@ import com.example.securescan.model.AuthResponse
 import com.example.securescan.model.UserResponse
 import com.example.securescan.utilities.QrParser
 import com.example.securescan.utilities.RetrofitClient
+import com.google.gson.JsonParser
 import java.io.IOException
 
 // class that handles the communication with the server, the view model talk to this class and not directly to Retrofit
@@ -14,6 +15,10 @@ object MainRepository {
 
     //var that save the ApiService after we scan the qr and create the api
     private var apiService: ApiService? = null
+
+    fun clearApiSession() {
+        apiService = null
+    }
 
     suspend fun resolveQrData(rawText: String): ApiResult<UserResponse> {
         // parse the QR content into a QrConfig object
@@ -39,7 +44,7 @@ object MainRepository {
                 val errorText = response.errorBody()?.use { it.string() }
                 ApiResult.HttpError(
                     code = response.code(),
-                    message = errorText?.takeUnless { it.isBlank() } ?: response.message()
+                    message = messageFromServerErrorBody(errorText) ?: response.message()
                 )
             }
         } catch (e: IOException) {
@@ -75,7 +80,7 @@ object MainRepository {
                 val errorText = response.errorBody()?.use { it.string() }
                 ApiResult.HttpError(
                     code = response.code(),
-                    message = errorText?.takeUnless { it.isBlank() } ?: response.message()
+                    message = messageFromServerErrorBody(errorText) ?: response.message()
                 )
             }
         } catch (e: IOException) {
@@ -85,4 +90,25 @@ object MainRepository {
         }
     }
 
+
+
+    private fun messageFromServerErrorBody(raw: String?): String? {
+        val text = raw?.trim().orEmpty()
+        if (text.isEmpty()) return null
+        return try {
+            val o = JsonParser.parseString(text).asJsonObject
+            val detail = o.get("detail") ?: return text
+            when {
+                detail.isJsonPrimitive && detail.asJsonPrimitive.isString -> detail.asString
+                detail.isJsonObject -> {
+                    val obj = detail.asJsonObject
+                    obj.get("error")?.asString?.takeIf { it.isNotBlank() }
+                        ?: obj.get("message")?.asString?.takeIf { it.isNotBlank() }
+                }
+                else -> null
+            }?.takeIf { it.isNotBlank() } ?: text
+        } catch (_: Exception) {
+            text
+        }
+    }
 }

@@ -1,14 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/secure_scan_background"
+    android:layoutDirection="ltr"
     tools:context=".ui.SuccessFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/success_scroll_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        android:paddingStart="@dimen/button_margin"
+        android:paddingTop="@dimen/qr_scan_section_spacing"
+        android:paddingEnd="@dimen/button_margin"
+        android:paddingBottom="@dimen/big_padding">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/success_CARD_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/secure_scan_surface_elevated"
+            app:cardCornerRadius="@dimen/qr_scan_bottom_card_radius"
+            app:cardElevation="6dp"
+            app:strokeColor="@color/secure_scan_card_stroke"
+            app:strokeWidth="1dp">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="@dimen/default_padding4">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/success_IMG_check"
+                    android:layout_width="@dimen/success_icon_size"
+                    android:layout_height="@dimen/success_icon_size"
+                    android:contentDescription="@string/auth_success_check_content_description"
+                    android:padding="@dimen/default_Padding"
+                    app:srcCompat="@drawable/ic_success_check_circle"
+                    app:tint="@color/brand_accent_pink" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/success_LBL_welcome"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_Padding"
+                    android:text="@string/auth_success_welcome"
+                    android:textAlignment="center"
+                    android:textColor="@color/secure_scan_on_surface"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/success_LBL_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_padding3"
+                    android:textAlignment="center"
+                    android:textColor="@color/secure_scan_on_surface"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:text="Shadeh Levi" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/success_LBL_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:paddingBottom="@dimen/default_Padding"
+                    android:textAlignment="center"
+                    android:textColor="@color/secure_scan_on_surface_muted"
+                    android:textSize="15sp"
+                    tools:text="shadeh.levi@unixi.io" />
+
+                <ProgressBar
+                    android:id="@+id/success_PRB_loading"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="@dimen/loading_signin_circle_size"
+                    android:layout_height="@dimen/loading_signin_circle_size"
+                    android:layout_marginTop="@dimen/default_padding3"
+                    android:contentDescription="@string/auth_success_loading_content_description"
+                    android:indeterminateTint="@color/brand_accent_pink" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.core.widget.NestedScrollView>
 
 </FrameLayout>

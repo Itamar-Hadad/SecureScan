@@ -80,9 +80,26 @@ class QrScanFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Fragment instance can survive on the back stack with isScanning == false after a scan;
+        // when the view is created again we must allow new scans.
+        isScanning = true
+        awaitingResolveResult = false
+
         initViews()
         observeViewModel()
         checkPermissions()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Back from Auth / Error: analyzer was cleared and never reattached; same instance may keep isScanning false.
+        binding.root.post {
+            if (!isAdded) return@post
+            if (sharedViewModel.isLoading.value == true) return@post
+            isScanning = true
+            awaitingResolveResult = false
+            boundImageAnalysis?.let { attachBarcodeAnalyzer() }
+        }
     }
 
     private fun initViews() {

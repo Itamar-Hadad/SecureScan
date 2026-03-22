@@ -25,8 +25,13 @@
     <string name="auth_sign_in">Sign in</string>
     <string name="auth_back_content_description">Back</string>
 
-    <string name="auth_error_title">Couldn\'t sign in</string>
-    <string name="auth_error_try_again">Try again</string>
+    <string name="auth_error_sign_in_failed">Sign-in failed</string>
+    <string name="auth_error_retry">Retry</string>
+    <string name="auth_error_scan_qr_again">Scan QR again</string>
     <string name="auth_error_generic">Something went wrong. Please try again.</string>
     <string name="auth_error_network">Network error. Check connection and try again.</string>
+
+    <string name="auth_success_welcome">Welcome</string>
+    <string name="auth_success_check_content_description">Signed in successfully</string>
+    <string name="auth_success_loading_content_description">Loading</string>
 </resources>

@@ -17,4 +17,6 @@
     <dimen name="big_padding">32dp</dimen>
     <dimen name="default_padding4">24dp</dimen>
     <dimen name="loading_signin_circle_size">32dp</dimen>
+    <dimen name="button_height">56dp</dimen>
+    <dimen name="success_icon_size">72dp</dimen>
 </resources>
