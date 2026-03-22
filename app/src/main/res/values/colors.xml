@@ -2,4 +2,20 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00000000</color>
+
+    <!-- Brand pink (~#E92D3F) — same in light and dark -->
+    <color name="orange_app_color">#FFE92D3F</color>
+    <color name="brand_accent_pink">#FFE92D3F</color>
+
+    <!-- Day / light UI (SecureScan + Auth) -->
+    <color name="secure_scan_background">#FFFFFFFF</color>
+    <color name="secure_scan_surface">#FFE8EAEF</color>
+    <color name="secure_scan_surface_elevated">#FFF8F9FC</color>
+    <color name="secure_scan_on_surface">#FF1C1B1F</color>
+    <color name="secure_scan_on_surface_muted">#99000000</color>
+    <color name="secure_scan_card_stroke">#33E92D3F</color>
+
+    <!-- Progress on pink button -->
+    <color name="secure_scan_on_primary">#FFFFFFFF</color>
 </resources>

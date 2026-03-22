@@ -6,28 +6,28 @@
     app:startDestination="@id/qrScanFragment">
     <fragment
         android:id="@+id/qrScanFragment"
-        android:name="com.example.securescan.QrScanFragment"
+        android:name="com.example.securescan.ui.QrScanFragment"
         android:label="fragment_qr_scan"
         tools:layout="@layout/fragment_qr_scan" >
         <action
-            android:id="@+id/action_qrScanFragment_to_authFragment2"
+            android:id="@+id/action_qrScanFragment_to_authFragment"
             app:destination="@id/authFragment" />
     </fragment>
     <fragment
         android:id="@+id/authFragment"
-        android:name="com.example.securescan.AuthFragment"
+        android:name="com.example.securescan.ui.AuthFragment"
         android:label="fragment_auth"
         tools:layout="@layout/fragment_auth" >
         <action
             android:id="@+id/action_authFragment_to_errorFragment"
             app:destination="@id/errorFragment" />
         <action
-            android:id="@+id/action_authFragment_to_successFragment2"
+            android:id="@+id/action_authFragment_to_successFragment"
             app:destination="@id/successFragment" />
     </fragment>
     <fragment
         android:id="@+id/successFragment"
-        android:name="com.example.securescan.SuccessFragment"
+        android:name="com.example.securescan.ui.SuccessFragment"
         android:label="fragment_success"
         tools:layout="@layout/fragment_success" >
         <action
@@ -36,7 +36,7 @@
     </fragment>
     <fragment
         android:id="@+id/errorFragment"
-        android:name="com.example.securescan.ErrorFragment"
+        android:name="com.example.securescan.ui.ErrorFragment"
         android:label="fragment_error"
         tools:layout="@layout/fragment_error" >
         <action
@@ -45,7 +45,7 @@
     </fragment>
     <fragment
         android:id="@+id/mainAppFragment"
-        android:name="com.example.securescan.MainAppFragment"
+        android:name="com.example.securescan.ui.MainAppFragment"
         android:label="fragment_main_app"
         tools:layout="@layout/fragment_main_app" />
 </navigation>

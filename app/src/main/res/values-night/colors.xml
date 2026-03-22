@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Night / dark — same look as before (QR + Auth) -->
+    <color name="secure_scan_background">#FF000000</color>
+    <color name="secure_scan_surface">#FF16161F</color>
+    <color name="secure_scan_surface_elevated">#FF1E1E2A</color>
+    <color name="secure_scan_on_surface">#FFF0F0F5</color>
+    <color name="secure_scan_on_surface_muted">#B3FFFFFF</color>
+    <color name="secure_scan_card_stroke">#66E92D3F</color>
+    <color name="secure_scan_on_primary">#FFFFFFFF</color>
+</resources>

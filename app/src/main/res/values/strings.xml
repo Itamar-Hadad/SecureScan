@@ -2,4 +2,31 @@
     <string name="app_name">SecureScan</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="qr_scan_title">Scan QR code</string>
+    <string name="qr_scan_subtitle">Point your camera at the configuration QR.</string>
+    <string name="qr_scan_instruction_headline">HOW IT WORKS</string>
+    <string name="qr_scan_instruction_body">Hold steady inside the frame. We’ll connect to your backend and load your profile, then you’ll sign in with your password.</string>
+    <string name="qr_scan_back_content_description">Back</string>
+    <string name="qr_scan_frame_content_description">Align QR code within this frame</string>
+    <string name="qr_scan_menu_content_description">More options</string>
+    <string name="qr_scan_resolving">Resolving…</string>
+    <string name="qr_scan_camera_rationale">Camera access is needed to scan the configuration QR code.</string>
+    <string name="qr_scan_allow">Allow</string>
+    <string name="qr_scan_camera_denied">Camera permission is off. Turn it on in Settings to scan.</string>
+    <string name="qr_scan_settings">Settings</string>
+    <string name="qr_scan_retry">Retry</string>
+
+    <string name="auth_screen_title">Sign in</string>
+    <string name="auth_screen_subtitle">Enter your password to continue to your workspace.</string>
+    <string name="auth_welcome_headline">Welcome back</string>
+    <string name="auth_email_label">Account email</string>
+    <string name="auth_password_hint">Password</string>
+    <string name="auth_sign_in">Sign in</string>
+    <string name="auth_back_content_description">Back</string>
+
+    <string name="auth_error_title">Couldn\'t sign in</string>
+    <string name="auth_error_try_again">Try again</string>
+    <string name="auth_error_generic">Something went wrong. Please try again.</string>
+    <string name="auth_error_network">Network error. Check connection and try again.</string>
 </resources>

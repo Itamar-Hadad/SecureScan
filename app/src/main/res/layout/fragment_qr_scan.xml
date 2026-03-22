@@ -1,14 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".QrScanFragment">
+    android:background="@color/secure_scan_background"
+    android:clipChildren="false"
+    android:layoutDirection="ltr"
+    tools:context=".ui.QrScanFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+    <androidx.camera.view.PreviewView
+        android:id="@+id/qrScan_VIEW_preview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:scaleType="fillCenter" />
+
+    <View
+        android:id="@+id/qrScan_VIEW_topGradient"
+        android:layout_width="0dp"
+        android:layout_height="220dp"
+        android:background="@drawable/qr_scan_top_gradient"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/qrScan_layout_topBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/default_margin"
+        android:paddingTop="@dimen/default_Padding"
+        android:paddingEnd="@dimen/default_margin"
+        android:paddingBottom="@dimen/default_Padding"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/qr_scan_header_top_padding">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/qrScan_BTN_back"
+            android:layout_width="@dimen/arrow_back_size"
+            android:layout_height="@dimen/arrow_back_size"
+            android:background="@color/transparent"
+            android:contentDescription="@string/qr_scan_back_content_description"
+            android:padding="@dimen/default_padding2"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/ic_qr_scan_back" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/qrScan_LBL_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/qr_scan_title"
+            android:textColor="@color/secure_scan_on_surface"
+            android:textSize="@dimen/bar_title_size"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/qrScan_BTN_menu"
+            android:layout_width="@dimen/arrow_back_size"
+            android:layout_height="@dimen/arrow_back_size"
+            android:background="@color/transparent"
+            android:contentDescription="@string/qr_scan_menu_content_description"
+            android:padding="@dimen/default_padding3"
+            app:srcCompat="@drawable/ic_qr_scan_more_vert" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/qrScan_LBL_subtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:lineSpacingExtra="3dp"
+        android:text="@string/qr_scan_subtitle"
+        android:textAlignment="viewStart"
+        android:textColor="@color/secure_scan_on_surface_muted"
+        android:textSize="@dimen/instruction_camera_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/qrScan_layout_topBar" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/qrScan_CARD_scanFrame"
+        android:layout_width="@dimen/qr_scan_frame_size"
+        android:layout_height="@dimen/qr_scan_frame_size"
+        android:layout_marginTop="@dimen/qr_scan_after_title_spacing"
+        app:cardBackgroundColor="@color/transparent"
+        app:cardCornerRadius="@dimen/qr_scan_frame_corner_radius"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/qrScan_LBL_subtitle"
+        app:strokeColor="@color/brand_accent_pink"
+        app:strokeWidth="3dp">
+
+        <FrameLayout
+            android:id="@+id/qrScan_layout_frameInner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/qr_scan_frame_content_description" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <ProgressBar
+        android:id="@+id/qrScan_PRB_loading"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:indeterminateTint="@color/brand_accent_pink"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/qrScan_CARD_scanFrame"
+        tools:visibility="gone" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/qrScan_LBL_resolving"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/qr_scan_resolving"
+        android:textColor="@color/secure_scan_on_surface_muted"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/qrScan_layout_bottomPanel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/qrScan_PRB_loading"
+        tools:visibility="gone" />
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/qrScan_layout_bottomPanel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_qr_scan_bottom_card"
+        android:elevation="10dp"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/button_margin"
+        android:paddingTop="@dimen/default_padding4"
+        android:paddingEnd="@dimen/button_margin"
+        android:paddingBottom="@dimen/big_padding"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/qrScan_LBL_instructionHeadline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/qr_scan_instruction_headline"
+            android:textColor="@color/brand_accent_pink"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/qrScan_LBL_instruction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_Padding"
+            android:lineSpacingExtra="4dp"
+            android:text="@string/qr_scan_instruction_body"
+            android:textColor="@color/secure_scan_on_surface"
+            android:textSize="15sp" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

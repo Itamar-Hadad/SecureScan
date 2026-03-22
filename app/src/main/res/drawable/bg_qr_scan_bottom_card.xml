@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/secure_scan_surface_elevated" />
+    <corners
+        android:topLeftRadius="@dimen/qr_scan_bottom_card_radius"
+        android:topRightRadius="@dimen/qr_scan_bottom_card_radius" />
+</shape>
