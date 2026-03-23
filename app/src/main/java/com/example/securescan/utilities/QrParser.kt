@@ -10,7 +10,7 @@ object QrParser {
         val trimmed = qrContent.trim()
         if (trimmed.isEmpty()) return null
 
-        // JSON from QR: {"baseUrl":"...","token":"..."} — full config in one scan.
+        // JSON from QR: {"baseUrl":"...","token":"..."} full config in one scan.
         if (!trimmed.startsWith("{")) return null
 
         return try {

@@ -29,7 +29,6 @@ class DeviceInfoFragment : Fragment() {
     }
 
     private fun initViews() {
-        // 1. דגם המכשיר והיצרן (מתוך Build)
         // model and manufacturer of the device (from Build)
         binding.deviceInfoLBLDeviceModelValue.text = Build.MODEL
         binding.deviceInfoLBLManufacturerValue.text = Build.MANUFACTURER.replaceFirstChar { it.uppercase() }

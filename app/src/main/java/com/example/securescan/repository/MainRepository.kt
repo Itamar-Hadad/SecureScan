@@ -16,6 +16,8 @@ object MainRepository {
     //var that save the ApiService after we scan the qr and create the api
     private var apiService: ApiService? = null
 
+
+    // clear the api session
     fun clearApiSession() {
         apiService = null
     }
@@ -43,6 +45,7 @@ object MainRepository {
             } else {
                 val errorText = response.errorBody()?.use { it.string() }
                 ApiResult.HttpError(
+                    //code is the status code from the server 400, 200
                     code = response.code(),
                     message = messageFromServerErrorBody(errorText) ?: response.message()
                 )
@@ -61,22 +64,24 @@ object MainRepository {
             ?: return ApiResult.ClientError("No active connection. Please scan QR first.")
 
         return try {
+            //send the password to the server and get the response
             val response = currentService.validatePassword(AuthRequest(userId, password))
             val body = response.body()
 
             if (response.isSuccessful && body != null) {
                 when {
+                    //if in the response the user is authenticated we return success
                     body.authenticated == true -> ApiResult.Success(body)
-                    body.status?.equals("success", ignoreCase = true) == true ->
-                        ApiResult.Success(body)
                     else -> {
-                        val msg = listOfNotNull(body.error, body.message, body.status)
+                        //try to find the error message in the respons, the first one
+                        val msg = listOfNotNull(body.error, body.message)
                             .firstOrNull { !it.isNullOrBlank() }
                             ?: "Authentication failed"
                         ApiResult.ClientError(msg)
                     }
                 }
             } else {
+                //if the response is not successful we return the error
                 val errorText = response.errorBody()?.use { it.string() }
                 ApiResult.HttpError(
                     code = response.code(),
@@ -91,17 +96,24 @@ object MainRepository {
     }
 
 
-
+    //function that help us to get the error message from the server
+    //the error comes in the response body in json format { "detail": "error message" }
     private fun messageFromServerErrorBody(raw: String?): String? {
+        //trim the response body
         val text = raw?.trim().orEmpty()
         if (text.isEmpty()) return null
         return try {
-            val o = JsonParser.parseString(text).asJsonObject
-            val detail = o.get("detail") ?: return text
+            //convert the json to a json object
+            val jsonObject = JsonParser.parseString(text).asJsonObject
+            //get the error message from the json object
+            val detail = jsonObject.get("detail") ?: return text
             when {
+                //if the error message is a string we return it
                 detail.isJsonPrimitive && detail.asJsonPrimitive.isString -> detail.asString
+                //if the error message is an object we try to get the error message from it
                 detail.isJsonObject -> {
                     val obj = detail.asJsonObject
+                    //check if there is an error message in the object
                     obj.get("error")?.asString?.takeIf { it.isNotBlank() }
                         ?: obj.get("message")?.asString?.takeIf { it.isNotBlank() }
                 }

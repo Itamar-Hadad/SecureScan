@@ -9,9 +9,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
 
-    //HttpLoggingInterceptor logs all network traffic (Requests & Responses) to Logcat for debugging purposes.
+    // Avoid request/response bodies in logs to prevent leaking credentials.
     private val logging = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BODY
+        level = HttpLoggingInterceptor.Level.BASIC
     }
 
     //OkHttpClient is the underlying networking engine that handles the actual HTTP connections and data transfer.
