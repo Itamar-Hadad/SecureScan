@@ -34,6 +34,11 @@ class AuthFragment : Fragment() {
         observeViewModel()
     }
 
+    override fun onDestroyView() {
+        binding.authEDTPassword.setText("")
+        super.onDestroyView()
+    }
+
     private fun initViews() {
         binding.authBTNBack.setOnClickListener {
             findNavController().navigateUp()
@@ -81,34 +86,31 @@ class AuthFragment : Fragment() {
                 null -> return@observe
                 is ApiResult.Success -> {
                     sharedViewModel.clearAuthResult()
+                    binding.authEDTPassword.setText("")
                     findNavController().navigate(R.id.action_authFragment_to_successFragment)
                 }
                 is ApiResult.HttpError -> {
-                    sharedViewModel.clearAuthResult()
-                    sharedViewModel.setErrorMessage(result.message ?: "Server error (${result.code})")
-                    findNavController().navigate(R.id.action_authFragment_to_errorFragment)
-                    SignalManager.getInstance().vibrate()
+                    handleAuthFailure(result)
                 }
                 ApiResult.NetworkError -> {
-                    sharedViewModel.clearAuthResult()
-                    sharedViewModel.setErrorMessage("Network error. Check connection and try again.")
-                    findNavController().navigate(R.id.action_authFragment_to_errorFragment)
-                    SignalManager.getInstance().vibrate()
+                    handleAuthFailure(result)
                 }
                 is ApiResult.ParseError -> {
-                    sharedViewModel.clearAuthResult()
-                    sharedViewModel.setErrorMessage(result.message)
-                    findNavController().navigate(R.id.action_authFragment_to_errorFragment)
-                    SignalManager.getInstance().vibrate()
+                    handleAuthFailure(result)
                 }
                 is ApiResult.ClientError -> {
-                    sharedViewModel.clearAuthResult()
-                    sharedViewModel.setErrorMessage(result.message)
-                    findNavController().navigate(R.id.action_authFragment_to_errorFragment)
-                    SignalManager.getInstance().vibrate()
+                    handleAuthFailure(result)
                 }
             }
         }
+    }
+
+    private fun handleAuthFailure(result: ApiResult<*>) {
+        sharedViewModel.clearAuthResult()
+        binding.authEDTPassword.setText("")
+        sharedViewModel.setErrorMessage(sharedViewModel.userFacingErrorMessage(result))
+        findNavController().navigate(R.id.action_authFragment_to_errorFragment)
+        SignalManager.getInstance().vibrate()
     }
 }
 

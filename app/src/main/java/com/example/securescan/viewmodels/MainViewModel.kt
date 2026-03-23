@@ -17,14 +17,11 @@ class MainViewModel : ViewModel() {
     //LiveData to hold the user data, the UI listen to this
 
 
-    private val mutableUserData = MutableLiveData<UserResponse?>() //only the viewmodel can change
-    val userData: LiveData<UserResponse?> = mutableUserData //the UI read
-
-
+    private val mutableUserData = MutableLiveData<UserResponse?>() //only the viewModel can change this
+    val userData: LiveData<UserResponse?> = mutableUserData //the UI can listen to this
 
     private val mutableAuthResult = MutableLiveData<ApiResult<AuthResponse>?>()
     val authResult: LiveData<ApiResult<AuthResponse>?> = mutableAuthResult
-
 
     private val mutableIsLoading = MutableLiveData<Boolean>(false)
     val isLoading: LiveData<Boolean> = mutableIsLoading
@@ -35,20 +32,17 @@ class MainViewModel : ViewModel() {
     private val mutableClearAuthPassword = MutableLiveData(false)
     val clearAuthPassword: LiveData<Boolean> = mutableClearAuthPassword
 
-    private val mutableIsAuthenticated = MutableLiveData<Boolean>(false)
+    private val mutableIsAuthenticated = MutableLiveData(false)
     val isAuthenticated: LiveData<Boolean> = mutableIsAuthenticated
 
-    //update if the user is authenticated
     fun setAuthenticated(status: Boolean) {
         mutableIsAuthenticated.value = status
     }
 
-    //clear the password for retry
     fun requestClearAuthPasswordForRetry() {
         mutableClearAuthPassword.value = true
     }
 
-    //finish to clear the password for retry
     fun consumeClearAuthPasswordRequest() {
         mutableClearAuthPassword.value = false
     }
@@ -65,6 +59,16 @@ class MainViewModel : ViewModel() {
         mutableErrorMessage.value = message
     }
 
+    fun userFacingErrorMessage(result: ApiResult<*>): String {
+        return when (result) {
+            is ApiResult.HttpError -> result.message ?: "Server error (${result.code})"
+            ApiResult.NetworkError -> "Network error. Check connection and try again."
+            is ApiResult.ParseError -> result.message
+            is ApiResult.ClientError -> result.message
+            else -> "Something went wrong. Please try again."
+        }
+    }
+
     fun processQr(rawText: String) {
         mutableIsLoading.value = true
         mutableErrorMessage.value = null
@@ -79,23 +83,22 @@ class MainViewModel : ViewModel() {
                 }
 
                 is ApiResult.HttpError -> {
-                    mutableErrorMessage.value =
-                        result.message ?: "Server error (${result.code})"
+                    mutableErrorMessage.value = userFacingErrorMessage(result)
                     mutableIsLoading.value = false
                 }
 
-                ApiResult.NetworkError -> {
-                    mutableErrorMessage.value = "Network error. Check connection and try again."
+                is ApiResult.NetworkError -> {
+                    mutableErrorMessage.value = userFacingErrorMessage(result)
                     mutableIsLoading.value = false
                 }
 
                 is ApiResult.ParseError -> {
-                    mutableErrorMessage.value = result.message
+                    mutableErrorMessage.value = userFacingErrorMessage(result)
                     mutableIsLoading.value = false
                 }
 
                 is ApiResult.ClientError -> {
-                    mutableErrorMessage.value = result.message
+                    mutableErrorMessage.value = userFacingErrorMessage(result)
                     mutableIsLoading.value = false
                 }
             }
@@ -113,11 +116,13 @@ class MainViewModel : ViewModel() {
         }
     }
 
+
     fun resetSession() {
         mutableUserData.value = null
         mutableAuthResult.value = null
         mutableErrorMessage.value = null
         mutableIsLoading.value = false
+        mutableIsAuthenticated.value = false
         consumeClearAuthPasswordRequest()
         repository.clearApiSession()
     }
