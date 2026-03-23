@@ -70,7 +70,7 @@ SecureScan is an Android application that demonstrates end to end mobile flow wi
 ### 2. Start backend
 Run the provided backend server from the assignment instructions.
 ### 3. Configure QR
-Generate or use demo QR values from:
+Generate demo QR with values from:
 - `GET /demo/qr-tokens`
 Make sure QR content matches the app’s expected format for backend URL/token.
 ### 4. Run app
