@@ -39,4 +39,6 @@
     <string name="main_tab_device_info">Device info</string>
     <string name="main_home_placeholder">Home content goes here.</string>
     <string name="main_device_placeholder">Device information will appear here.</string>
+    <string name="splash_powered_by">Powered by</string>
+    <string name="splash_unixi_logo_content_description">Unixi logo</string>
 </resources>

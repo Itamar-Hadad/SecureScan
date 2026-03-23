@@ -24,4 +24,6 @@
     <dimen name="title_size">22sp</dimen>
     <dimen name="text_size">15sp</dimen>
     <dimen name="information_text_size">17sp</dimen>
+    <dimen name="unixi_logo_width">180dp</dimen>
+    <dimen name="unixi_logo_height">60dp</dimen>
 </resources>

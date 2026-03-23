@@ -5,15 +5,46 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SplashScreen">
+    tools:context=".SplashScreenActivity">
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/splash_LOTTIE_lottie"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
-        app:lottie_rawRes="@raw/qr_scan"
+        app:lottie_rawRes="@raw/qr_scanning"
         />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/splash_layout_powered_by"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/default_padding4"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/splash_LBL_powered_by"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/splash_powered_by"
+            android:textColor="@color/secure_scan_on_surface_muted"
+            android:textSize="@dimen/text_size"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/splash_IMG_unixi_logo"
+            android:layout_width="@dimen/unixi_logo_width"
+            android:layout_height="@dimen/unixi_logo_height"
+            android:layout_marginTop="@dimen/default_Padding"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/splash_unixi_logo_content_description"
+            android:scaleType="fitCenter"
+            android:src="@drawable/unixi_logo" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
 
 
 </RelativeLayout>
