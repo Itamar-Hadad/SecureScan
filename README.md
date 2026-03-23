@@ -85,17 +85,38 @@ Make sure QR content matches the app’s expected format for backend URL/token.
 - Network failure shows unified error message
 ---
 ## Screenshots
+
 ### Splash Screen
-![Splash Screen](docs/screenshots/splash.png)
+<p align="center">
+  <img src="screenshots/splashscreen.jpg" width="250"/>
+</p>
+
 ### QR Scan Screen
-![QR Scan Screen](docs/screenshots/qr_scan.png)
+<p align="center">
+  <img src="screenshots/QrFragment.jpg" width="250"/>
+</p>
+
 ### Authentication Screen
-![Authentication Screen](docs/screenshots/auth.png)
+<p align="center">
+  <img src="screenshots/authfragment.jpg" width="250"/>
+</p>
+
 ### Error Screen
-![Error Screen](docs/screenshots/error.png)
+<p align="center">
+  <img src="screenshots/errorfragment.jpg" width="250"/>
+</p>
+
 ### Success Screen
-![Success Screen](docs/screenshots/success.png)
-### Main Screen — Home Tab
-![Main Home Tab](docs/screenshots/main_home.png)
-### Main Screen — Device Info Tab
-![Main Device Info Tab](docs/screenshots/main_device_info.png)
+<p align="center">
+  <img src="screenshots/successfragment.jpg" width="250"/>
+</p>
+
+### Main Screen: Home Tab
+<p align="center">
+  <img src="screenshots/homefragment.jpg" width="250"/>
+</p>
+
+### Main Screen: Device Info Tab
+<p align="center">
+  <img src="screenshots/deviceinfofragment.jpg" width="250"/>
+</p>
