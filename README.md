@@ -26,11 +26,15 @@ SecureScan is an Android application that demonstrates end to end mobile flow wi
 - User enters password and submits to backend (`POST /auth/validate`).
 - On failure: navigates to Error screen with retry/scan-again actions.
 - On success: navigates to Success screen, then auto-redirects to Main app.
+
 ### 3) Main Application
 - Bottom navigation with two tabs:
   - **Home**: Full Name, Email, Company, Department, User ID, Account Creation Date.
   - **Device Info**: Device Model, OS, OS Version, App Version, Manufacturer, Language/Locale.
-### 4) Security/Networking Notes
+### 4) UI / Theme Support
+- Supports Light and Dark Mode with adaptive theming based on the system configuration.
+
+### 5) Security/Networking Notes
 - Password is not logged in request/response bodies.
 - Network security config is enabled:
   - HTTPS first by default.
