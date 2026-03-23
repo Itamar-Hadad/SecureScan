@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.securescan.databinding.FragmentHomeBinding
+import com.example.securescan.utilities.Constants
 import com.example.securescan.viewmodels.MainViewModel
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -53,11 +54,11 @@ class HomeFragment : Fragment() {
 
         return try {
             // the format that we got from the server
-            val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX", Locale.getDefault())
-            parser.timeZone = TimeZone.getTimeZone("UTC")
+            val parser = SimpleDateFormat(Constants.DateFormats.SERVER_ISO_UTC, Locale.getDefault())
+            parser.timeZone = TimeZone.getTimeZone(Constants.DateFormats.UTC_TIMEZONE_ID)
 
             // the format i want to show the user
-            val formatter = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
+            val formatter = SimpleDateFormat(Constants.DateFormats.UI_READABLE, Locale.getDefault())
             val date = parser.parse(dateString)
 
             date?.let { formatter.format(it) } ?: dateString

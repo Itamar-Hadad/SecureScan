@@ -12,6 +12,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.securescan.R
 import com.example.securescan.databinding.FragmentSuccessBinding
+import com.example.securescan.utilities.Constants
 import com.example.securescan.viewmodels.MainViewModel
 
 
@@ -55,7 +56,7 @@ class SuccessFragment : Fragment() {
             if (isAdded) {
                 navigateToMainApp()
             }
-        }, 2000)
+        }, Constants.Navigation.SUCCESS_AUTO_NAV_DELAY_MS)
     }
 
     private fun navigateToMainApp() {

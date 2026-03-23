@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.securescan.databinding.FragmentDeviceInfoBinding
+import com.example.securescan.utilities.Constants
 import java.util.Locale
 
 class DeviceInfoFragment : Fragment() {
@@ -34,7 +35,7 @@ class DeviceInfoFragment : Fragment() {
         binding.deviceInfoLBLManufacturerValue.text = Build.MANUFACTURER.replaceFirstChar { it.uppercase() }
 
         // operating system and version (from Build)
-        binding.deviceInfoLBLOsValue.text = "Android"
+        binding.deviceInfoLBLOsValue.text = Constants.DeviceInfo.OS_NAME
         binding.deviceInfoLBLOsVersionValue.text = "${Build.VERSION.RELEASE} (API ${Build.VERSION.SDK_INT})"
 
         // app version (from package manager)
@@ -53,7 +54,7 @@ class DeviceInfoFragment : Fragment() {
             val packageInfo: PackageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
             "${packageInfo.versionName} (${packageInfo.versionCode})"
         } catch (e: Exception) {
-            "Version unavailable"
+            Constants.DeviceInfo.VERSION_UNAVAILABLE
         }
     }
 

@@ -28,6 +28,7 @@ import com.google.mlkit.vision.common.InputImage
 
 import com.example.securescan.R
 import com.example.securescan.databinding.FragmentQrScanBinding
+import com.example.securescan.utilities.Constants
 import com.example.securescan.utilities.SignalManager
 import com.example.securescan.viewmodels.MainViewModel
 
@@ -139,7 +140,11 @@ class QrScanFragment : Fragment() {
     private fun openAppSettings() {
         startActivity(
             Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-                data = Uri.fromParts("package", requireContext().packageName, null)
+                data = Uri.fromParts(
+                    Constants.Intents.PACKAGE_SCHEME,
+                    requireContext().packageName,
+                    null
+                )
             }
         )
     }
