@@ -78,4 +78,7 @@ dependencies {
 
     // ML Kit QR Scanning
     implementation(libs.google.mlkit.barcode.scanning)
+
+    //Lottie
+    implementation(libs.lottie)
 }

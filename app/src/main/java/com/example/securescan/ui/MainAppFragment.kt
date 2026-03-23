@@ -41,6 +41,7 @@ class MainAppFragment : Fragment() {
             v.setPadding(v.paddingLeft, v.paddingTop, v.paddingRight, 0)
             insets
         }
+
         binding.mainAppBottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> {

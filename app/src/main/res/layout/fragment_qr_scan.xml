@@ -24,7 +24,7 @@
         android:id="@+id/qrScan_layout_topBar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:orientation="horizontal"
         android:paddingStart="@dimen/default_margin"
         android:paddingTop="@dimen/default_Padding"
@@ -35,37 +35,16 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="@dimen/qr_scan_header_top_padding">
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/qrScan_BTN_back"
-            android:layout_width="@dimen/arrow_back_size"
-            android:layout_height="@dimen/arrow_back_size"
-            android:background="@color/transparent"
-            android:contentDescription="@string/qr_scan_back_content_description"
-            android:padding="@dimen/default_padding2"
-            android:scaleType="centerInside"
-            app:srcCompat="@drawable/ic_qr_scan_back" />
-
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/qrScan_LBL_title"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_weight="1"
             android:ellipsize="end"
             android:maxLines="1"
             android:text="@string/qr_scan_title"
             android:textColor="@color/secure_scan_on_surface"
             android:textSize="@dimen/bar_title_size"
             android:textStyle="bold" />
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/qrScan_BTN_menu"
-            android:layout_width="@dimen/arrow_back_size"
-            android:layout_height="@dimen/arrow_back_size"
-            android:background="@color/transparent"
-            android:contentDescription="@string/qr_scan_menu_content_description"
-            android:padding="@dimen/default_padding3"
-            app:srcCompat="@drawable/ic_qr_scan_more_vert" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

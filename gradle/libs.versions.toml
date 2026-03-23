@@ -27,6 +27,9 @@ loggingInterceptor = "4.12.0"
 camerax = "1.4.1"
 mlkit-barcode = "17.3.0"
 
+# Lottie
+lottie = "6.6.6"
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -66,9 +69,13 @@ androidx-camera-view = { group = "androidx.camera", name = "camera-view", versio
 # ML Kit (for scan the qr)
 google-mlkit-barcode-scanning = { group = "com.google.mlkit", name = "barcode-scanning", version.ref = "mlkit-barcode" }
 
+# Lottie
+lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-navigation-safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigation" }
+
+
 

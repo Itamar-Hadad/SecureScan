@@ -85,7 +85,6 @@ class QrScanFragment : Fragment() {
         isScanning = true
         awaitingResolveResult = false
 
-        initViews()
         observeViewModel()
         checkPermissions()
     }
@@ -99,12 +98,6 @@ class QrScanFragment : Fragment() {
             isScanning = true
             awaitingResolveResult = false
             boundImageAnalysis?.let { attachBarcodeAnalyzer() }
-        }
-    }
-
-    private fun initViews() {
-        binding.qrScanBTNBack.setOnClickListener {
-            findNavController().navigateUp()
         }
     }
 
