@@ -9,15 +9,6 @@
     android:layoutDirection="ltr"
     tools:context=".ui.AuthFragment">
 
-    <View
-        android:id="@+id/auth_VIEW_topGradient"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:background="@drawable/qr_scan_top_gradient"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/auth_layout_topBar"
         android:layout_width="0dp"

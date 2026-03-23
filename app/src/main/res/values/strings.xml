@@ -34,4 +34,9 @@
     <string name="auth_success_welcome">Welcome</string>
     <string name="auth_success_check_content_description">Signed in successfully</string>
     <string name="auth_success_loading_content_description">Loading</string>
+    <string name="main_app_title">SecureScan</string>
+    <string name="main_tab_home">Home</string>
+    <string name="main_tab_device_info">Device info</string>
+    <string name="main_home_placeholder">Home content goes here.</string>
+    <string name="main_device_placeholder">Device information will appear here.</string>
 </resources>

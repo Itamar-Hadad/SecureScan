@@ -19,4 +19,9 @@
     <dimen name="loading_signin_circle_size">32dp</dimen>
     <dimen name="button_height">56dp</dimen>
     <dimen name="success_icon_size">72dp</dimen>
+    <dimen name="line_width">72dp</dimen>
+    <dimen name="line_height">4dp</dimen>
+    <dimen name="title_size">22sp</dimen>
+    <dimen name="text_size">15sp</dimen>
+    <dimen name="information_text_size">17sp</dimen>
 </resources>

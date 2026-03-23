@@ -45,7 +45,7 @@ class SuccessFragment : Fragment() {
     }
 
     private fun markAsAuthenticated() {
-       //upd
+       //update the shared view model to mark the user as authenticated
         sharedViewModel.setAuthenticated(true)
     }
 
@@ -61,7 +61,7 @@ class SuccessFragment : Fragment() {
     private fun navigateToMainApp() {
         // define NavOptions to remove all Auth fragments from the back stack
         val navOptions = NavOptions.Builder()
-            .setPopUpTo(R.id.qrScanFragment, true) // מוחק הכל עד הסורק (כולל)
+            .setPopUpTo(R.id.qrScanFragment, true)
             .build()
 
         findNavController().navigate(
