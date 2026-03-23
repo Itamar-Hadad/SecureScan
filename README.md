@@ -1,5 +1,10 @@
-# SecureScan: Unixi Mobile Assignment
-SecureScan is an Android application that demonstrates end-to-end mobile flow with:
+<p align="center">
+  <img width="110" alt="IMG_8253" src="https://github.com/user-attachments/assets/0876734c-46db-47fa-8189-66ccee5f4409" />
+</p>
+<h1 align="center"> SecureScan</h1>
+<p align="center"><b>Unixi Mobile Assignment</b></p>
+
+SecureScan is an Android application that demonstrates end to end mobile flow with:
 - QR scanning (CameraX + ML Kit)
 - Dynamic backend configuration from QR payload
 - Backend API integration (`/qr/resolve`, `/auth/validate`)
